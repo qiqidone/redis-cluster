@@ -3,7 +3,7 @@
 
 Using Docker Compose to setup a redis cluster with sentinel.
 
-This project is inspired by the project of [https://github.com/mdevilliers/docker-rediscluster][1]
+This project is inspired by the project of [https://github.com/mdevilliers/docker-redismasterslave][1]
 
 ## Prerequisite
 
@@ -88,9 +88,9 @@ The result is
 ```
          Name                        Command               State          Ports        
 --------------------------------------------------------------------------------------
-rediscluster_master_1     docker-entrypoint.sh redis ...   Up      6379/tcp            
-rediscluster_sentinel_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
-rediscluster_slave_1      docker-entrypoint.sh redis ...   Up      6379/tcp     
+redismasterslave_master_1     docker-entrypoint.sh redis ...   Up      6379/tcp            
+redismasterslave_sentinel_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
+redismasterslave_slave_1      docker-entrypoint.sh redis ...   Up      6379/tcp     
 ```
 
 Scale out the instance number of sentinel
@@ -116,12 +116,12 @@ The result is
 ```
          Name                        Command               State          Ports        
 --------------------------------------------------------------------------------------
-rediscluster_master_1     docker-entrypoint.sh redis ...   Up      6379/tcp            
-rediscluster_sentinel_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
-rediscluster_sentinel_2   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
-rediscluster_sentinel_3   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
-rediscluster_slave_1      docker-entrypoint.sh redis ...   Up      6379/tcp            
-rediscluster_slave_2      docker-entrypoint.sh redis ...   Up      6379/tcp            
+redismasterslave_master_1     docker-entrypoint.sh redis ...   Up      6379/tcp            
+redismasterslave_sentinel_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
+redismasterslave_sentinel_2   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
+redismasterslave_sentinel_3   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp 
+redismasterslave_slave_1      docker-entrypoint.sh redis ...   Up      6379/tcp            
+redismasterslave_slave_2      docker-entrypoint.sh redis ...   Up      6379/tcp            
 ```
 
 Execute the test scripts
@@ -133,22 +133,22 @@ to simulate stop and recover the Redis master. And you will see the master is sw
 Or, you can do the test manually to pause/unpause redis server through
 
 ```
-docker pause rediscluster_master_1
-docker unpause rediscluster_master_1
+docker pause redismasterslave_master_1
+docker unpause redismasterslave_master_1
 ```
 And get the sentinel infomation with following commands
 
 ```
-docker exec rediscluster_sentinel_1 redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
+docker exec redismasterslave_sentinel_1 redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
 ```
 
 ## References
 
-[https://github.com/mdevilliers/docker-rediscluster][1]
+[https://github.com/mdevilliers/docker-redismasterslave][1]
 
 [https://registry.hub.docker.com/u/joshula/redis-sentinel/] [2]
 
-[1]: https://github.com/mdevilliers/docker-rediscluster
+[1]: https://github.com/mdevilliers/docker-redismasterslave
 [2]: https://registry.hub.docker.com/u/joshula/redis-sentinel/
 [3]: https://docs.docker.com/compose/
 [4]: https://www.docker.com
