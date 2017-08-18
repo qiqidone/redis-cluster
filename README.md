@@ -144,7 +144,7 @@ docker exec redismasterslave_sentinel_1 redis-cli -p 26379 SENTINEL get-master-a
 
 ## References
 
-[https://github.com/mdevilliers/docker-redismasterslave][1]
+[https://github.com/mdevilliers/docker-rediscluster][1]
 
 [https://registry.hub.docker.com/u/joshula/redis-sentinel/] [2]
 
