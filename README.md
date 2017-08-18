@@ -1,5 +1,5 @@
-# redis-cluster 
-**Redis cluster with Docker Compose** 
+# redis-master-slave 
+**Redis master/slave cluster with Docker Compose** 
 
 Using Docker Compose to setup a redis cluster with sentinel.
 
